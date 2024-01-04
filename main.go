@@ -19,6 +19,7 @@ func main() {
 	// Define routes
 	r = routers.SetupRouter(r)
 
+
 	// Start the server
 	port := utils.GetEnv(utils.ENV_PORT, "8080")
 	r.Run(":" + port)
