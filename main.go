@@ -1,9 +1,10 @@
 package main
 
 import (
-	"net/http"
+	"openexchange-otel-go/pkg/routers"
+	"openexchange-otel-go/pkg/utils"
+
 	"github.com/gin-gonic/gin"
-    "openexchange-otel-go/pkg/utils"
 )
 
 const ENV_PORT = "PORT"
@@ -16,11 +17,10 @@ func main() {
 	r.Use(gin.Recovery())
 
 	// Define routes
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello, Gin!")
-	})
+	r = routers.SetupRouter(r)
+
 
 	// Start the server
-	port := utils.GetEnv(ENV_PORT, "8080")
+	port := utils.GetEnv(utils.ENV_PORT, "8080")
 	r.Run(":" + port)
 }
