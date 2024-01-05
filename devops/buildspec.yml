@@ -9,8 +9,8 @@ phases:
   install:
     runtime-versions:
       golang: $GO_VERSION
-#    commands:
-#      - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
+    commands:
+      - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
 #      - echo GOPATH - $GOPATH
 #
 #      - echo Create dir in GOPATH for sources
@@ -21,10 +21,11 @@ phases:
 #      - cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
 #
 #      - cd ${GOPATH}/src/${PACKAGE} && go get ./...
-#  build:
-#    commands:
+  build:
+    commands:
 #      - devops/build.sh
+      - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
 
-artifacts:
-  files:
-    - application
+#artifacts:
+#  files:
+#    - application
