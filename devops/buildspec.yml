@@ -8,7 +8,7 @@ env:
 phases:
   install:
     runtime-versions:
-      golang: $GO_VERSION
+      golang: 1.21
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
