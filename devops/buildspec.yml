@@ -17,11 +17,10 @@ phases:
 #     - devops/build.sh
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo PWD - $PWD
-      - ls -las /go/src
-      - ls -las /go/bin
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
-      - mkdir .test 
+      # Set gobin and install
+      - GOBIN=$(pwd)/build go install
       # Download packages
       - go mod download
       # Run the tests and generate coverage profile
