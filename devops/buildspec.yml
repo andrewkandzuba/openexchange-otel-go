@@ -16,8 +16,10 @@ phases:
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
       # Set gobin and install
-
-      - mkdir -p /tmp/codebuild/output/utkbansal/go
+      - THEGOPATH=$(echo $CODEBUILD_SRC_DIR | awk -F':' '{print $NF}')
+      - echo THEGOPATH - $THEGOPATH
+      - mkdir -p $THEGOPATH/pkg
+      - mkdir -p $THEGOPATH/bin
       - GOBIN=$(pwd)/build go install
   build:
     commands:
