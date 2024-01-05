@@ -12,13 +12,14 @@ phases:
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
-      - ls -las /go
   build:
     commands:
 #     - devops/build.sh
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo PWD - $PWD
-      - cd ${CODEBUILD_SRC_DIR} 
+      # Set working dir
+      - cd ${CODEBUILD_SRC_DIR}
+      - mkdir -R .test 
       # Download packages
       - go mod download
       # Run the tests and generate coverage profile
