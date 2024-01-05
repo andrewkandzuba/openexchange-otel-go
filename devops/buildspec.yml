@@ -4,7 +4,6 @@ env:
   variables:
     GO_VERSION: 1.21
     PACKAGE: "github.com/andrewkandzuba/openexchange-otel-go"
-    GOPATH: $HOME/go
 
 phases:
   install:
@@ -13,6 +12,8 @@ phases:
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
+
+      - mkdir -p "/go/src/$(dirname ${PACKAGE})"
 
       - echo Create dir in GOPATH for sources
       - mkdir -p ${GOPATH}/src/${PACKAGE}
