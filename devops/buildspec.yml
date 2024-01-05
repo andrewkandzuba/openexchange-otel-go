@@ -19,7 +19,7 @@ phases:
       - echo PWD - $PWD
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
-      - mkdir -R .test 
+      - mkdir .test 
       # Download packages
       - go mod download
       # Run the tests and generate coverage profile
