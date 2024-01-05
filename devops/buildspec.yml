@@ -1,7 +1,5 @@
 version: 0.2
 
-run-as: root
-
 env:
   variables:
     GO_VERSION: 1.21
@@ -10,19 +8,23 @@ env:
 phases:
   install:
     runtime-versions:
-      golang: 1.21
-    commands:
-      - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
-      - echo GOPATH - $GOPATH
+      golang: $GO_VERSION
+#    commands:
+#      - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
+#      - echo GOPATH - $GOPATH
+#
+#      - echo Create dir in GOPATH for sources
+#      - mkdir -p ${GOPATH}/src/${PACKAGE}
+#
+#      - echo Copy source files into GOPATH
+#      - echo cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
+#      - cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
+#
+#      - cd ${GOPATH}/src/${PACKAGE} && go get ./...
+#  build:
+#    commands:
+#      - devops/build.sh
 
-      - echo Create dir in GOPATH for sources
-      - mkdir -p ${GOPATH}/src/${PACKAGE}
-
-      - echo Copy source files into GOPATH
-      - echo cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
-      - cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
-
-      - cd ${GOPATH}/src/${PACKAGE} && go get ./...
-  build:
-    commands:
-      - devops/build.sh
+artifacts:
+  files:
+    - application
