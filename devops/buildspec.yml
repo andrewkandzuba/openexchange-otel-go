@@ -4,6 +4,7 @@ env:
   variables:
     GO_VERSION: 1.21
     PACKAGE: "github.com/andrewkandzuba/openexchange-otel-go"
+    GOPATH: "~/go"
 
 phases:
   install:
