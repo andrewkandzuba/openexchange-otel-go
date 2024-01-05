@@ -1,0 +1,27 @@
+version: 0.2
+
+run-as: codebuild-user
+
+phases:
+    install:
+      on-failure: ABORT
+      runtime-platform:
+        golang: 1.21
+      run-as: root
+      commands:
+        # (install various things...)
+        # ...
+        #
+        # Prepare env for unprivileged user.
+        #
+        - |
+            mkdir -p ~codebuild-user
+            chown -R codebuild-user:codebuild-user ~codebuild-user .
+            chmod +x ~codebuild-user
+            ls -ld ~codebuild-user
+        # Ensure that the unprivileged user has permissions to the socket.
+        - chmod 666 /var/run/docker.sock
+    build:
+      on-failure: ABORT
+      commands:
+        - devops/build.sh
