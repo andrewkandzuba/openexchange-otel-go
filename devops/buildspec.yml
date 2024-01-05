@@ -16,6 +16,8 @@ phases:
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
       # Set gobin and install
+
+      - mkdir -p /home/utkbansal/go
       - GOBIN=$(pwd)/build go install
   build:
     commands:
