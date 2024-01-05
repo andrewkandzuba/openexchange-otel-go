@@ -1,32 +1,21 @@
 version: 0.2
 
+run-as: root
+
 phases:
   install:
     runtime-versions:
       golang: 1.21
-    run-as: root
-    commands:
+    #run-as: root
+    #commands:
       # (install various things...)
       # ...
       #
       # Prepare env for unprivileged user.
       #
-      - addgroup codebuild-user && useradd codebuild-user -g codebuild-user -d /home/otel
+      #- addgroup codebuild-user && useradd codebuild-user -g codebuild-user -d /home/otel
       # Ensure that the unprivileged user has permissions to the socket.
-      - chmod 666 /var/run/docker.sock
-  pre_build:
-    run-as: codebuild-user
-    env:
-      variables:
-          HOME: /home/codebuild-user
-    commands:
-        # codebuild ignores the env.variables.HOME declaration above...?
-        - export HOME=/home/codebuild-user
-        # do stuff...+
+      #- chmod 666 /var/run/docker.sock
   build:
-    run-as: codebuild-user
-    env:
-      variables:
-          HOME: /home/codebuild-user
     commands:
       - devops/build.sh
