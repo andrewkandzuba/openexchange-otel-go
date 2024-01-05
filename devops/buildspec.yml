@@ -10,11 +10,11 @@ phases:
   install:
     runtime-versions:
       golang: 1.21
+    commands:
+      - echo $CODEBUILD_SRC_DIR && ls $CODEBUILD_SRC_DIR
   pre_build:
     commands:
-        # codebuild ignores the env.variables.HOME declaration above...?
         - echo $CODEBUILD_SRC_DIR && ls $CODEBUILD_SRC_DIR
-        # do stuff...+
   build:
     commands:
       - devops/build.sh
