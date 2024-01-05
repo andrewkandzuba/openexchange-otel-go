@@ -17,6 +17,8 @@ phases:
 #     - devops/build.sh
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo PWD - $PWD
+      - ls -las /go/src
+      - ls -las /go/pkg
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
       - mkdir .test 
