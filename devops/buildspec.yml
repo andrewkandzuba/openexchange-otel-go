@@ -11,21 +11,41 @@ phases:
       golang: $GO_VERSION
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
-#      - echo GOPATH - $GOPATH
-#
-#      - echo Create dir in GOPATH for sources
-#      - mkdir -p ${GOPATH}/src/${PACKAGE}
-#
-#      - echo Copy source files into GOPATH
-#      - echo cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
-#      - cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
-#
-#      - cd ${GOPATH}/src/${PACKAGE} && go get ./...
+      - echo GOPATH - $GOPATH
+
+      - echo Create dir in GOPATH for sources
+      - mkdir -p ${GOPATH}/src/${PACKAGE}
+
+      - echo Copy source files into GOPATH
+      - echo cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
+      - cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
+
+      - cd ${GOPATH}/src/${PACKAGE} && go get ./...
   build:
     commands:
-#      - devops/build.sh
+#     - devops/build.sh
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
-
+      - go install
+      # Download packages
+      - go mod download
+      # Run the tests and generate coverage profile
+      - go test -coverpkg=./... -coverprofile=./build/coverage.out -covermode=count ./...
+      # Generate test summary
+      - go tool cover -func=./build/coverage.out > ./build/summary.log
+      # Generate html test report
+      - go tool cover -html=./build/coverage.out -o ./build/coverage.html
+      # Use go tool cover to parse the coverage percentages
+      - coverage=$(cat ./build/summary.log | grep total | awk '{print $3}' | sed -e 's/[%]//g')
+      # Define the minimum coverage threshold
+      - threshold=85.00
+      # Compare coverage with the threshold
+      - |
+        if (( $(echo "$coverage < $threshold" | bc -l) )); then
+          echo "Coverage ($coverage%) is below the threshold ($threshold%)."
+          exit 1
+        else
+          echo "Coverage is above or equal to the threshold ($threshold%)."
+        fi
 #artifacts:
 #  files:
 #    - application
