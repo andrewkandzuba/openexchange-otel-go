@@ -12,6 +12,7 @@ phases:
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
+      - ls -las /go/pkg/
   build:
     commands:
 #     - devops/build.sh
