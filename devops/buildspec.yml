@@ -13,20 +13,12 @@ phases:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
 
-      - mkdir -p "/go/src/$(dirname ${PACKAGE})"
-
-      - echo Create dir in GOPATH for sources
-      - mkdir -p ${GOPATH}/src/${PACKAGE}
-
-      - echo Copy source files into GOPATH
-      - echo cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
-      - cp -a ${CODEBUILD_SRC_DIR}/.  ${GOPATH}/src/${PACKAGE}
-
-      - cd ${GOPATH}/src/${PACKAGE} && go get ./...
+      - cd ${CODEBUILD_SRC_DIR}/src/${PACKAGE} && go get ./...
   build:
     commands:
 #     - devops/build.sh
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
+      - echo PWD - $PWD
       - go install
       # Download packages
       - go mod download
