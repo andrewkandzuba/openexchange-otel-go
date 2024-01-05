@@ -1,11 +1,10 @@
 version: 0.2
 
-run-as: codebuild-user
-
 phases:
   install:
     runtime-versions:
       golang: 1.21
+    run-as: root
     commands:
       # (install various things...)
       # ...
@@ -20,5 +19,6 @@ phases:
       # Ensure that the unprivileged user has permissions to the socket.
       - chmod 666 /var/run/docker.sock
   build:
+    run-as: codebuild-user
     commands:
       - devops/build.sh
