@@ -9,9 +9,14 @@ phases:
   install:
     runtime-versions:
       golang: 1.21
+    on-failure: ABORT
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
+      # Set working dir
+      - cd ${CODEBUILD_SRC_DIR}
+      # Set gobin and install
+      - GOBIN=$(pwd)/build go install
   build:
     commands:
 #     - devops/build.sh
