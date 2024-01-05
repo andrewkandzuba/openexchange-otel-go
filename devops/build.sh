@@ -3,6 +3,9 @@
 # Clean up the build location
 rm -rf ./build && GOBIN=$(pwd)/build go install
 
+# Download packages
+go mod download
+
 # Run the tests and generate coverage profile
 go test -coverpkg=./... -coverprofile=./build/coverage.out -covermode=count ./...
 

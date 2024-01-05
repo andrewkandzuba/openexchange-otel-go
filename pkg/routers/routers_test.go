@@ -23,7 +23,7 @@ func TestHelloHandler(t *testing.T) {
     }
 
     // Check the response body
-    expectedBody := "Hello, Gin!"
+    expectedBody := "{\"message\":\"Hello, World!\"}"
     if w.Body.String() != expectedBody {
         t.Errorf("Expected response body %s, but got %s", expectedBody, w.Body.String())
     }
@@ -44,7 +44,7 @@ func TestLivenessHandler(t *testing.T) {
     }
 
     // Check the response body
-    expectedBody := "Healthy!"
+    expectedBody := "{\"message\":\"Healthy!\"}"
     if w.Body.String() != expectedBody {
         t.Errorf("Expected response body %s, but got %s", expectedBody, w.Body.String())
     }
@@ -65,7 +65,7 @@ func TestReadinessHandler(t *testing.T) {
     }
 
     // Check the response body
-    expectedBody := "Ready!"
+    expectedBody := "{\"message\":\"Ready!\"}"
     if w.Body.String() != expectedBody {
         t.Errorf("Expected response body %s, but got %s", expectedBody, w.Body.String())
     }

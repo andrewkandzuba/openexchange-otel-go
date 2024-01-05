@@ -19,3 +19,6 @@ build
 
 # Go workspace file
 go.work
+
+# Visual Studio Code
+.vscode

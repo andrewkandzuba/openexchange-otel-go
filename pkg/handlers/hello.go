@@ -7,6 +7,6 @@ import (
 
 func Greetings() gin.HandlerFunc {
     return func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello, Gin!")
+		c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
 	}
 }

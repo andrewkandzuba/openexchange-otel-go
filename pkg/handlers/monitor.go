@@ -8,13 +8,13 @@ import (
 
 func Liveness() gin.HandlerFunc {
     return func(c *gin.Context) {
-		c.String(http.StatusOK, "Healthy!")
+		c.JSON(http.StatusOK, gin.H{"message": "Healthy!"})
 	}
 }
 
 func Readiness() gin.HandlerFunc {
     return func(c *gin.Context) {
-		c.String(http.StatusOK, "Ready!")
+		c.JSON(http.StatusOK,gin.H{"message": "Ready!"})
 	}
 }
 
