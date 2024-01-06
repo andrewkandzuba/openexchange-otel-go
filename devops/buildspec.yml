@@ -16,7 +16,7 @@ phases:
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
       # Set gobin and install
-      - THEGOPATH=$(echo $CODEBUILD_SRC_DIR | awk -F':' '{print $NF}')
+      - THEGOPATH=$(echo $GOPATH | awk -F':' '{print $NF}')
       - echo THEGOPATH - $THEGOPATH
       - mkdir -p $THEGOPATH/pkg
       - mkdir -p $THEGOPATH/bin
