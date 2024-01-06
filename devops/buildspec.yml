@@ -13,25 +13,21 @@ phases:
     commands:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
+      # Install bc
+      - sudo apt install bc
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
-      # Set gobin and install
+      # Patch GOPATH
       - THEGOPATH=$(echo $GOPATH | awk -F':' '{print $NF}')
       - echo THEGOPATH - $THEGOPATH
       - mkdir -p $THEGOPATH/pkg
       - mkdir -p $THEGOPATH/bin
       - GOPATH=$THEGOPATH
       - echo GOPATH - $GOPATH
-      - GOBIN=$(pwd)/build go install
+      # Download packages
+      # - GOBIN=$(pwd)/build go install
   build:
     commands:
-#     - devops/build.sh
-      - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
-      - echo PWD - $PWD
-      # Set working dir
-      - cd ${CODEBUILD_SRC_DIR}
-      # Set gobin and install
-      - GOBIN=$(pwd)/build go install
       # Download packages
       - go mod download
       # Run the tests and generate coverage profile
@@ -52,6 +48,6 @@ phases:
         else
           echo "Coverage is above or equal to the threshold ($threshold%)."
         fi
-#artifacts:
-#  files:
-#    - application
+artifacts:
+  files:
+    - openexchange-otel-go
