@@ -14,7 +14,7 @@ phases:
       - echo CODEBUILD_SRC_DIR - $CODEBUILD_SRC_DIR
       - echo GOPATH - $GOPATH
       # Install bc
-      - sudo apt install bc
+      - apt install bc
       # Set working dir
       - cd ${CODEBUILD_SRC_DIR}
       # Patch GOPATH
